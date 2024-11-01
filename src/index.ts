@@ -9,14 +9,6 @@ import { execSync } from 'child_process';
 
 dotenv.config();
 
-// const model = await select({
-//   message: 'Select an AI provider',
-//   choices: [
-//     { name: 'OpenAI', value: 'openai' },
-//     { name: 'Anthropic', value: 'anthropic' },
-//   ],
-// });
-
 try {
   const diffSpinner = ora('Getting staged changes...').start();
   const diff = execSync('git diff --staged --unified=0 --no-color', {
@@ -45,13 +37,14 @@ try {
 
   if (confirmMessage) {
     const cleanMessage = fullResponse.trim().replace(/"/g, '\\"'); // Escape any quotes
-    console.log('\nPress Enter to run:');
-    console.log(`git commit -m "${cleanMessage}"`);
 
-    // Wait for Enter key
-    process.stdin.setRawMode(true);
-    process.stdin.resume();
-    process.stdin.on('data', process.exit.bind(process, 0));
+    // Use input prompt to pause for Enter key
+    await input({
+      message: `Press Enter to run: git commit -m "${cleanMessage}"`,
+    });
+
+    execSync(`git commit -m "${cleanMessage}"`, { stdio: 'inherit' });
+    console.log('\nCommit applied.');
   } else {
     console.log('Commit message not applied.');
     process.exit(0);
