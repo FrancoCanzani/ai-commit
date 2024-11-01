@@ -2,25 +2,20 @@ import { program } from 'commander';
 import ora from 'ora';
 import { input, select, Separator, confirm } from '@inquirer/prompts';
 import { openai } from '@ai-sdk/openai';
-import { CoreMessage, streamText, tool } from 'ai';
+import { streamText } from 'ai';
 import dotenv from 'dotenv';
 import { z } from 'zod';
 import { execSync } from 'child_process';
 
 dotenv.config();
 
-// const answer = await input({ message: 'Enter your name' });
-
-const model = await select({
-  message: 'Select an AI provider',
-  choices: [
-    { name: 'OpenAI', value: 'openai' },
-    { name: 'Anthropic', value: 'anthropic' },
-  ],
-});
-
-// Now model will be a single value
-console.log(`Selected model: ${model}`);
+// const model = await select({
+//   message: 'Select an AI provider',
+//   choices: [
+//     { name: 'OpenAI', value: 'openai' },
+//     { name: 'Anthropic', value: 'anthropic' },
+//   ],
+// });
 
 try {
   const diffSpinner = ora('Getting staged changes...').start();
