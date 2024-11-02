@@ -1,0 +1,7 @@
+{
+  "provider": "openai",
+  "envVariable": "OPENAI_API_KEY",
+  "format": "simple",
+  "maxLength": 50,
+  "options": {}
+}

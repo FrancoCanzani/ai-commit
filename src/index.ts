@@ -4,7 +4,6 @@ import { input, select, Separator, confirm } from '@inquirer/prompts';
 import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 import dotenv from 'dotenv';
-import { z } from 'zod';
 import { execSync } from 'child_process';
 
 dotenv.config();
