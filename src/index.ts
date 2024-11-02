@@ -1,12 +1,16 @@
 import { program } from 'commander';
 import ora from 'ora';
-import { input, select, Separator, confirm } from '@inquirer/prompts';
-import { openai } from '@ai-sdk/openai';
-import { streamText } from 'ai';
+import { input, confirm } from '@inquirer/prompts';
 import dotenv from 'dotenv';
 import { execSync } from 'child_process';
+import getConfigFile from './helpers/get-config-file';
+import AiModel from './helpers/ai-model';
 
 dotenv.config();
+
+const config = await getConfigFile();
+
+const ai = new AiModel(config?.provider ?? 'openai');
 
 try {
   const diffSpinner = ora('Getting staged changes...').start();
@@ -16,14 +20,10 @@ try {
   diffSpinner.succeed('Got staged changes');
 
   const aiSpinner = ora('Generating commit message...').start();
-  const result = await streamText({
-    model: openai('gpt-4o-mini'),
-    prompt: `Based on this git diff, write a single-line conventional commit message. Use the format type(optional-scope): description. Be concise and specific. Maximum 50 characters. No explanation, just the commit message. ${diff}`,
-  });
-  aiSpinner.succeed('Generated commit message');
-
   let fullResponse = '';
   process.stdout.write('\nProposed commit message: ');
+  const result = await ai.generateCommitMessage(diff);
+
   for await (const delta of result.textStream) {
     fullResponse += delta;
     process.stdout.write(delta);
