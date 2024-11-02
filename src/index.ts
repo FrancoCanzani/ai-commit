@@ -18,7 +18,7 @@ try {
 
   const aiSpinner = ora('Generating commit message...').start();
   const result = await streamText({
-    model: openai('gpt-4-turbo'),
+    model: openai('gpt-4o-mini'),
     prompt: `Based on this git diff, write a single-line conventional commit message. Use the format type(optional-scope): description. Be concise and specific. Maximum 50 characters. No explanation, just the commit message. ${diff}`,
   });
   aiSpinner.succeed('Generated commit message');

@@ -4,10 +4,14 @@
   "description": "A package that generates commit messages with AI",
   "main": "index.js",
   "type": "module",
+  "bin": {
+    "ai-commit": "./bin/cli.ts"
+  },
   "scripts": {
     "start": "tsx src/index.ts",
     "build": "tsc",
-    "dev": "tsx watch src/index.ts"
+    "dev": "tsx watch src/index.ts",
+    "postinstall": "tsx src/setup.ts"
   },
   "repository": {
     "type": "git",
@@ -23,10 +27,12 @@
     "@ai-sdk/openai": "^0.0.71",
     "ai": "^3.4.31",
     "dotenv": "^16.4.5",
+    "figlet": "^1.8.0",
     "ora": "^8.1.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/figlet": "^1.7.0",
     "@types/inquirer": "^9.0.7",
     "@types/node": "^22.8.6",
     "commander": "^12.1.0",
