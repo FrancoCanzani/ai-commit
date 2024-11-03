@@ -20,7 +20,6 @@ import {
 } from './types';
 
 async function setup(): Promise<Config> {
-  // Convert figlet to Promise-based
   const asciiArt = await new Promise<string>((resolve, reject) => {
     figlet('AI COMMIT', (err, data) => {
       if (err) {
@@ -144,7 +143,6 @@ async function setup(): Promise<Config> {
       }
     }
 
-    // Return default config if user chooses not to configure
     return {
       provider: AI_PROVIDERS.OPENAI,
       envVariable: 'OPENAI_API_KEY',
