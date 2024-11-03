@@ -53,7 +53,7 @@ export default class AiModel {
       const result = await streamText({
         model: modelType,
         prompt: `Based on this git diff, write a single-line conventional commit message. Use the format ${
-          config?.format ?? 'type(optional-scope): description'
+          config?.format || 'type(optional-scope): description'
         }. Be concise and specific. Maximum ${
           config?.maxLength ?? 50
         } characters. No explanation, just the commit message. ${diff}`,
