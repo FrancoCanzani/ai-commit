@@ -45,10 +45,11 @@ try {
   }
 
   if (config?.options.autoCommit) {
-    const commitSpinner = ora('Applying commit...').start();
+    const commitSpinner = ora('Applying commit... \n').start();
+    process.stdout.write('\n');
     const cleanMessage = fullResponse.trim().replace(/"/g, '\\"');
     execSync(`git commit -m "${cleanMessage}"`, { stdio: 'inherit' });
-    commitSpinner.succeed('Commit applied successfully');
+    commitSpinner.stop();
   } else {
     const confirmMessage = await confirm({
       message: 'Would you like to use this commit message?',
