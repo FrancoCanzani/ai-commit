@@ -14,36 +14,57 @@ const ai = new AiModel(config?.provider ?? 'openai');
 
 try {
   const diffSpinner = ora('Getting staged changes...').start();
-  const diff = execSync('git diff --staged --unified=0 --no-color', {
-    encoding: 'utf-8',
-  }).toString();
-  diffSpinner.succeed('Got staged changes');
+  let diff;
+  try {
+    diff = execSync('git diff --staged --unified=0 --no-color', {
+      encoding: 'utf-8',
+    }).toString();
+    diffSpinner.succeed('Got staged changes');
+  } catch (error) {
+    diffSpinner.fail('No staged changes found');
+    process.exit(1);
+  }
 
   const aiSpinner = ora('Generating commit message...').start();
   let fullResponse = '';
-  process.stdout.write('\nProposed commit message: ');
-  const result = await ai.generateCommitMessage(diff);
 
-  for await (const delta of result.textStream) {
-    fullResponse += delta;
-    process.stdout.write(delta);
+  try {
+    const result = await ai.generateCommitMessage(diff);
+    aiSpinner.stop();
+    process.stdout.write('\nProposed commit message: ');
+
+    for await (const delta of result.textStream) {
+      fullResponse += delta;
+      process.stdout.write(delta);
+    }
+
+    process.stdout.write('\n\n');
+  } catch (error) {
+    aiSpinner.fail('Failed to generate commit message');
+    throw error;
   }
-  process.stdout.write('\n\n');
 
   const confirmMessage = await confirm({
     message: 'Would you like to use this commit message?',
   });
 
   if (confirmMessage) {
-    const cleanMessage = fullResponse.trim().replace(/"/g, '\\"'); // Escape any quotes
+    const commitSpinner = ora('Applying commit...').start();
 
-    // Use input prompt to pause for Enter key
-    await input({
-      message: `Press Enter to run: git commit -m "${cleanMessage}"`,
-    });
+    try {
+      const cleanMessage = fullResponse.trim().replace(/"/g, '\\"');
 
-    execSync(`git commit -m "${cleanMessage}"`, { stdio: 'inherit' });
-    console.log('\nCommit applied.');
+      commitSpinner.stop();
+      await input({
+        message: `Press Enter to run: git commit -m "${cleanMessage}"`,
+      });
+
+      execSync(`git commit -m "${cleanMessage}"`, { stdio: 'inherit' });
+      commitSpinner.succeed('Commit applied successfully');
+    } catch (error) {
+      commitSpinner.fail('Failed to apply commit');
+      throw error;
+    }
   } else {
     console.log('Commit message not applied.');
     process.exit(0);
