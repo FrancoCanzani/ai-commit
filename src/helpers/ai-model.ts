@@ -34,21 +34,44 @@ export default class AiModel {
   }
 
   async generateCommitMessage(diff: string) {
-    const result = await streamText({
-      model:
+    if (!diff) {
+      throw new Error('No diff provided to generate commit message.');
+    }
+
+    try {
+      const modelType =
         config?.provider === 'openai'
           ? openai('gpt-4o-mini')
-          : anthropic('claude-3-haiku-20240307'),
-      prompt: `Based on this git diff, write a single-line conventional commit message. Use the format ${
-        config?.format ?? 'type(optional-scope): description'
-      }. Be concise and specific. Maximum ${
-        config?.maxLength ?? 50
-      } characters. No explanation, just the commit message. ${diff}`,
-      headers: {
-        'x-api-key': this.apiKey,
-      },
-    });
+          : anthropic('claude-3-haiku-20240307');
 
-    return result;
+      if (!modelType) {
+        throw new Error(
+          `Model type for provider ${this.provider} is not supported or incorrectly configured.`
+        );
+      }
+
+      const result = await streamText({
+        model: modelType,
+        prompt: `Based on this git diff, write a single-line conventional commit message. Use the format ${
+          config?.format ?? 'type(optional-scope): description'
+        }. Be concise and specific. Maximum ${
+          config?.maxLength ?? 50
+        } characters. No explanation, just the commit message. ${diff}`,
+        headers: {
+          'x-api-key': this.apiKey,
+        },
+      });
+
+      if (!result) {
+        throw new Error('Received empty response from the AI service.');
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Error generating commit message:', error);
+      throw new Error(
+        'Failed to generate commit message. Please check your configuration and API credentials.'
+      );
+    }
   }
 }

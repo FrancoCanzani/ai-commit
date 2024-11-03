@@ -1,11 +1,4 @@
-import {
-  confirm,
-  input,
-  Separator,
-  select,
-  checkbox,
-  number,
-} from '@inquirer/prompts';
+import { confirm, input, select, checkbox, number } from '@inquirer/prompts';
 import fs from 'fs/promises';
 import path from 'path';
 import figlet from 'figlet';
@@ -90,19 +83,20 @@ async function setup(): Promise<Config> {
         message: 'Select commit message format:',
         choices: [
           {
-            name: 'Conventional (type(scope): description)',
-            value: COMMIT_FORMATS.CONVENTIONAL,
-          },
-          {
             name: 'Simple (description only)',
             value: COMMIT_FORMATS.SIMPLE,
           },
+          {
+            name: 'Conventional (type(scope): description)',
+            value: COMMIT_FORMATS.CONVENTIONAL,
+          },
+
           {
             name: 'Detailed (type(scope): description [optional body])',
             value: COMMIT_FORMATS.DETAILED,
           },
         ],
-        default: COMMIT_FORMATS.CONVENTIONAL,
+        default: COMMIT_FORMATS.SIMPLE,
       });
 
       const options = await checkbox<CommitOption>({

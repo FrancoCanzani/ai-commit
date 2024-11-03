@@ -4,9 +4,9 @@ export const AI_PROVIDERS = {
 } as const;
 
 export const COMMIT_FORMATS = {
-  CONVENTIONAL: 'conventional',
-  SIMPLE: 'simple',
-  DETAILED: 'detailed',
+  CONVENTIONAL: 'Conventional (type(scope): description)',
+  SIMPLE: 'Simple (description only)',
+  DETAILED: 'Detailed (type(scope): description [optional body])',
 } as const;
 
 export const COMMIT_OPTIONS = {
