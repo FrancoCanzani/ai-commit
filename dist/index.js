@@ -1,15 +1,30 @@
 #!/usr/bin/env node
-// ⬆︎ tells Unix-like systems to run this file with Node.js when executed from the command line
 import { program } from 'commander';
 import ora from 'ora';
-import { input, confirm } from '@inquirer/prompts';
 import dotenv from 'dotenv';
-import { execSync } from 'child_process';
+import { input, confirm } from '@inquirer/prompts';
 import getConfigFile from './helpers/get-config-file.js';
-import AiModel from './helpers/ai-model.js';
 import { setup } from './lib/setup.js';
+import AiModel from './helpers/ai-model.js';
+import { execSync } from 'child_process';
 dotenv.config();
 async function main() {
+    program
+        .name('ai-commit')
+        .description('AI-powered Git commit message generator')
+        .version('1.0.0')
+        .option('-c, --config', 'Configure ai-commit settings');
+    program.parse();
+    const options = program.opts();
+    if (options.config) {
+        // Run setup if --config is passed
+        await setup().catch((error) => {
+            console.error('Setup failed:', error);
+            process.exit(1);
+        });
+        console.log('Configuration complete.');
+        return;
+    }
     const config = await getConfigFile();
     const ai = new AiModel(config?.provider ?? 'openai');
     async function applyCommit(message) {
@@ -26,20 +41,6 @@ async function main() {
             pushSpinner.fail('Failed to push changes');
             throw error;
         }
-    }
-    program
-        .name('ai-commit')
-        .description('AI-powered Git commit message generator')
-        .version('1.0.0')
-        .option('-c, --config', 'Configure ai-commit settings');
-    program.parse();
-    const options = program.opts();
-    if (options.config) {
-        await setup().catch((error) => {
-            console.error('Setup failed:', error);
-            process.exit(1);
-        });
-        process.exit(0);
     }
     try {
         const diffSpinner = ora('Getting staged changes...').start();
@@ -72,7 +73,6 @@ async function main() {
         }
         if (config?.options.autoCommit) {
             const commitSpinner = ora('Applying commit...').start();
-            console.log();
             await applyCommit(fullResponse);
             commitSpinner.succeed('Commit applied successfully');
             if (config?.options.promptPush) {

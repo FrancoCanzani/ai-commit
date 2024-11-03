@@ -5,7 +5,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { AI_PROVIDERS, COMMIT_LANGUAGES } from './types.js';
 
-async function setup() {
+export async function setup() {
   const shouldConfigure = await confirm({
     message: `Would you like to configure ai-commit now?
 
@@ -61,7 +61,3 @@ async function setup() {
   );
   console.log('\n✅ Configuration saved successfully!');
 }
-
-setup().catch((error) => {
-  console.error('Setup failed:', error);
-});

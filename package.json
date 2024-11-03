@@ -11,8 +11,7 @@
     "postinstall": "node dist/lib/postinstall.js"
   },
   "bin": {
-    "ai-commit": "./dist/index.js",
-    "ai-commit-config": "./dist/lib/setup.js"
+    "ai-commit": "./dist/index.js"
   },
   "repository": {
     "type": "git",
