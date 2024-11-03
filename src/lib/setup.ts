@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { confirm, input, select, checkbox, number } from '@inquirer/prompts';
 import fs from 'fs/promises';
 import path from 'path';
