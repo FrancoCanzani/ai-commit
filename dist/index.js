@@ -10,10 +10,10 @@ import { execSync } from 'child_process';
 dotenv.config();
 async function main() {
     program
-        .name('aicommit')
+        .name('ai-commit')
         .description('AI-powered Git commit message generator')
         .version('1.0.0')
-        .option('-c, --config', 'Configure aicommit settings');
+        .option('-c, --config', 'Configure ai-commit settings');
     program.parse();
     const options = program.opts();
     if (options.config) {

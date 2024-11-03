@@ -1,5 +1,5 @@
 {
-  "name": "aicommit",
+  "name": "@francocanzani/ai-commit",
   "version": "1.0.0",
   "description": "A package that generates commit messages with AI",
   "main": "index.js",
@@ -11,18 +11,18 @@
     "postinstall": "node dist/lib/postinstall.js"
   },
   "bin": {
-    "aicommit": "./dist/index.js"
+    "@francocanzani/aicommit": "dist/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FrancoCanzani/aicommit-messages.git"
+    "url": "git+https://github.com/FrancoCanzani/ai-commit.git"
   },
   "author": "Franco Canzani",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/FrancoCanzani/aicommit-messages/issues"
   },
-  "homepage": "https://github.com/FrancoCanzani/aicommit-messages#readme",
+  "homepage": "https://github.com/FrancoCanzani/ai-commit#readme",
   "dependencies": {
     "@ai-sdk/anthropic": "^0.0.54",
     "@ai-sdk/openai": "^0.0.71",

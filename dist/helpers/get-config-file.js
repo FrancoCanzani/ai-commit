@@ -3,7 +3,7 @@ import path from 'path';
 import validateConfig from './validate-config.js';
 export default async function getConfigFile() {
     try {
-        const configPath = path.join(process.cwd(), 'aicommit-rc.json');
+        const configPath = path.join(process.cwd(), 'ai-commit-rc.json');
         const conf = await fs.readFile(configPath, { encoding: 'utf8' });
         const config = await JSON.parse(conf);
         const errors = validateConfig(config);
@@ -18,7 +18,7 @@ export default async function getConfigFile() {
     }
     catch (error) {
         if (error instanceof SyntaxError) {
-            console.error('\n❌ Invalid JSON in aicommit-rc.json');
+            console.error('\n❌ Invalid JSON in ai-commit-rc.json');
         }
         return null;
     }

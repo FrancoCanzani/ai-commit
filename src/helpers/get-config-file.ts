@@ -5,7 +5,7 @@ import { Config } from '../lib/types.js';
 
 export default async function getConfigFile(): Promise<Config | null> {
   try {
-    const configPath = path.join(process.cwd(), 'aicommit-rc.json');
+    const configPath = path.join(process.cwd(), 'ai-commit-rc.json');
     const conf = await fs.readFile(configPath, { encoding: 'utf8' });
     const config = await JSON.parse(conf);
 
@@ -21,7 +21,7 @@ export default async function getConfigFile(): Promise<Config | null> {
     return config;
   } catch (error) {
     if (error instanceof SyntaxError) {
-      console.error('\n❌ Invalid JSON in aicommit-rc.json');
+      console.error('\n❌ Invalid JSON in ai-commit-rc.json');
     }
     return null;
   }

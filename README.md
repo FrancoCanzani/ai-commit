@@ -1,8 +1,8 @@
-# aicommit
+# ai-commit
 
 ## Overview
 
-`aicommit` is an AI-powered Git commit message generator that assists developers in creating meaningful and structured commit messages using OpenAI or Anthropic's AI models. The tool analyzes the differences in staged changes and generates a proposed commit message based on configurable parameters.
+`ai-commit` is an AI-powered Git commit message generator that assists developers in creating meaningful and structured commit messages using OpenAI or Anthropic's AI models. The tool analyzes the differences in staged changes and generates a proposed commit message based on configurable parameters.
 
 ## Features
 
@@ -13,10 +13,10 @@
 
 ## Installation
 
-To install `aicommit`, run:
+To install `ai-commit`, run:
 
 ```bash
-npm install aicommit
+npm install ai-commit
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ npm install aicommit
 To use the tool, you can run it directly from the command line:
 
 ```bash
-npx aicommit
+npx ai-commit
 ```
 
 ### Commands
@@ -32,17 +32,17 @@ npx aicommit
 - **Generate commit message for staged changes:**
 
   ```bash
-  npx aicommit
+  npx ai-commit
   ```
 
-- **Configure aicommit settings:**
+- **Configure ai-commit settings:**
   ```bash
-  npx aicommit --config
+  npx ai-commit --config
   ```
 
 ## Configuration
 
-The configuration settings can be defined in the `aicommit-rc.json` file. The tool will attempt to read this file when executed. Here’s an example of the default configuration:
+The configuration settings can be defined in the `ai-commit-rc.json` file. The tool will attempt to read this file when executed. Here’s an example of the default configuration:
 
 ```json
 {
@@ -76,9 +76,9 @@ If you choose not to set up a configuration, the default settings are as follows
 
 ## Example Usage
 
-1. Run `aicommit-config` to set up your preferences or let the tool use the default configuration.
+1. Run `ai-commit-config` to set up your preferences or let the tool use the default configuration.
 2. Stage your changes using `git add`.
-3. Execute `aicommit` to generate a commit message based on the staged changes.
+3. Execute `ai-commit` to generate a commit message based on the staged changes.
 4. Confirm the proposed commit message or auto-commit based on your settings.
 
 ## Contributing
