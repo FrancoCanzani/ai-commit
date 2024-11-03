@@ -14,6 +14,7 @@ export async function setup() {
        Format: type(optional-scope): description
        Length: maximum 50 characters
        Language: English
+       Env file: .env
        Auto commit: false
        API_KEY will be extracted from environment variables (OPENAI_API_KEY)
        `,
@@ -42,6 +43,11 @@ export async function setup() {
                 default: provider === AI_PROVIDERS.OPENAI
                     ? 'OPENAI_API_KEY'
                     : 'ANTHROPIC_API_KEY',
+                validate: (value) => value.length > 0 || 'Environment variable name is required',
+            });
+            const envFile = await input({
+                message: 'Enter the env file name',
+                default: '.env',
                 validate: (value) => value.length > 0 || 'Environment variable name is required',
             });
             const messageLength = (await number({
@@ -140,6 +146,7 @@ export async function setup() {
                 envVariable,
                 format,
                 language,
+                envFile: envFile,
                 maxLength: messageLength,
                 options: options.reduce((acc, curr) => ({ ...acc, [curr]: true }), {}),
             };
@@ -159,6 +166,7 @@ export async function setup() {
             envVariable: 'OPENAI_API_KEY',
             format: COMMIT_FORMATS.CONVENTIONAL,
             language: COMMIT_LANGUAGES.ENGLISH,
+            envFile: '.env',
             maxLength: 50,
             options: {
                 [COMMIT_OPTIONS.SHOW_DIFF]: false,

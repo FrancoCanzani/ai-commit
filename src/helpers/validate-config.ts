@@ -53,6 +53,13 @@ export default function validateConfig(config: any): ValidationError[] {
     });
   }
 
+  if (typeof config.envFile !== 'string' || config.envFile.length < 3) {
+    errors.push({
+      field: 'envFile',
+      message: 'Must be a string',
+    });
+  }
+
   if (!config.options || typeof config.options !== 'object') {
     errors.push({
       field: 'options',

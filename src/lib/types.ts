@@ -39,6 +39,7 @@ export interface Config {
   envVariable: string;
   format: CommitFormat;
   language: CommitLanguage;
+  envFile: string;
   maxLength: number;
   options: {
     [K in CommitOption]?: boolean;

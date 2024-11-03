@@ -1,6 +1,6 @@
 {
   "name": "@francocanzani/ai-commit",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "A package that generates commit messages with AI",
   "main": "index.js",
   "type": "module",
@@ -20,7 +20,7 @@
   "author": "Franco Canzani",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/FrancoCanzani/aicommit-messages/issues"
+    "url": "https://github.com/FrancoCanzani/ai-commit/issues"
   },
   "homepage": "https://github.com/FrancoCanzani/ai-commit#readme",
   "dependencies": {

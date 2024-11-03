@@ -34,6 +34,12 @@ export default function validateConfig(config) {
             message: 'Must be a number between 50 and 100',
         });
     }
+    if (typeof config.envFile !== 'string' || config.envFile.length < 3) {
+        errors.push({
+            field: 'envFile',
+            message: 'Must be a string',
+        });
+    }
     if (!config.options || typeof config.options !== 'object') {
         errors.push({
             field: 'options',
