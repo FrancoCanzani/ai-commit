@@ -6,10 +6,12 @@ import {
   AI_PROVIDERS,
   COMMIT_FORMATS,
   COMMIT_OPTIONS,
+  COMMIT_LANGUAGES,
   Config,
   AIProvider,
   CommitFormat,
   CommitOption,
+  CommitLanguage,
 } from './types';
 
 async function setup(): Promise<Config> {
@@ -28,15 +30,16 @@ async function setup(): Promise<Config> {
   try {
     const shouldConfigure = await confirm({
       message: `Would you like to configure ai-commit now?
-    
-        If not, here is what the default config looks like:
-    
-        AI Provider: OpenAI
-        Format: type(optional-scope): description
-        Length: maximum 50 characters
-        Auto commit: false
-        API_KEY will be extracted from environment variables (OPENAI_API_KEY)
-        `,
+   
+       If not, here is what the default config looks like:
+   
+       AI Provider: OpenAI
+       Format: type(optional-scope): description
+       Length: maximum 50 characters
+       Language: English
+       Auto commit: false
+       API_KEY will be extracted from environment variables (OPENAI_API_KEY)
+       `,
       default: true,
     });
 
@@ -79,6 +82,53 @@ async function setup(): Promise<Config> {
           max: 100,
         })) ?? 50;
 
+      const language = await select<CommitLanguage>({
+        message: 'Select commit message language:',
+        choices: [
+          {
+            name: 'English',
+            value: COMMIT_LANGUAGES.ENGLISH,
+          },
+          {
+            name: 'Mandarin Chinese',
+            value: COMMIT_LANGUAGES.MANDARIN,
+          },
+          {
+            name: 'Hindi',
+            value: COMMIT_LANGUAGES.HINDI,
+          },
+          {
+            name: 'Spanish',
+            value: COMMIT_LANGUAGES.SPANISH,
+          },
+          {
+            name: 'French',
+            value: COMMIT_LANGUAGES.FRENCH,
+          },
+          {
+            name: 'Arabic',
+            value: COMMIT_LANGUAGES.ARABIC,
+          },
+          {
+            name: 'Portuguese',
+            value: COMMIT_LANGUAGES.PORTUGUESE,
+          },
+          {
+            name: 'Russian',
+            value: COMMIT_LANGUAGES.RUSSIAN,
+          },
+          {
+            name: 'Japanese',
+            value: COMMIT_LANGUAGES.JAPANESE,
+          },
+          {
+            name: 'German',
+            value: COMMIT_LANGUAGES.GERMAN,
+          },
+        ],
+        default: COMMIT_LANGUAGES.ENGLISH,
+      });
+
       const format = await select<CommitFormat>({
         message: 'Select commit message format:',
         choices: [
@@ -90,7 +140,6 @@ async function setup(): Promise<Config> {
             name: 'Conventional (type(scope): description)',
             value: COMMIT_FORMATS.CONVENTIONAL,
           },
-
           {
             name: 'Detailed (type(scope): description [optional body])',
             value: COMMIT_FORMATS.DETAILED,
@@ -124,6 +173,7 @@ async function setup(): Promise<Config> {
         provider,
         envVariable,
         format,
+        language,
         maxLength: messageLength,
         options: options.reduce(
           (acc, curr) => ({ ...acc, [curr]: true }),
@@ -146,6 +196,7 @@ async function setup(): Promise<Config> {
       provider: AI_PROVIDERS.OPENAI,
       envVariable: 'OPENAI_API_KEY',
       format: COMMIT_FORMATS.CONVENTIONAL,
+      language: COMMIT_LANGUAGES.ENGLISH,
       maxLength: 50,
       options: {
         [COMMIT_OPTIONS.SHOW_DIFF]: false,

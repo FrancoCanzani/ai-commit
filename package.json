@@ -11,7 +11,7 @@
     "start": "tsx src/index.ts",
     "build": "tsc",
     "dev": "tsx watch src/index.ts",
-    "postinstall": "tsx src/setup.ts"
+    "postinstall": "tsx src/lib/setup.ts"
   },
   "repository": {
     "type": "git",
