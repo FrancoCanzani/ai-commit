@@ -1,0 +1,11 @@
+{
+  "provider": "openai",
+  "envVariable": "OPENAI_API_KEY",
+  "format": "Simple (description only)",
+  "language": "english",
+  "maxLength": 50,
+  "options": {
+    "autoCommit": true,
+    "promptPush": true
+  }
+}
