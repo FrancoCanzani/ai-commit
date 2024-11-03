@@ -37,7 +37,7 @@ export default class AiModel {
 
     try {
       const modelType =
-        config?.provider === 'openai'
+        this.provider === 'openai'
           ? openai('gpt-4o-mini')
           : anthropic('claude-3-haiku-20240307');
 

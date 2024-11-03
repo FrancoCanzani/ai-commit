@@ -24,7 +24,7 @@ export default class AiModel {
             throw new Error('No diff provided to generate commit message.');
         }
         try {
-            const modelType = config?.provider === 'openai'
+            const modelType = this.provider === 'openai'
                 ? openai('gpt-4o-mini')
                 : anthropic('claude-3-haiku-20240307');
             if (!modelType) {

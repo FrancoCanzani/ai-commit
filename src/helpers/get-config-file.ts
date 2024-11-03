@@ -22,7 +22,10 @@ export default async function getConfigFile(): Promise<Config | null> {
   } catch (error) {
     if (error instanceof SyntaxError) {
       console.error('\n❌ Invalid JSON in ai-commit-rc.json');
-      return null;
+    } else {
+      console.error(
+        '\n❌ Configuration file not found. Run ai-commit-config to set up.'
+      );
     }
     return null;
   }
