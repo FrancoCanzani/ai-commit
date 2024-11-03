@@ -53,8 +53,13 @@ try {
 
     try {
       const cleanMessage = fullResponse.trim().replace(/"/g, '\\"');
-
       commitSpinner.stop();
+
+      if (config?.options.autoCommit) {
+        execSync(`git commit -m "${cleanMessage}"`, { stdio: 'inherit' });
+        commitSpinner.succeed('Commit applied successfully');
+      }
+
       await input({
         message: `Press Enter to run: git commit -m "${cleanMessage}"`,
       });

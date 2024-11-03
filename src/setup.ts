@@ -134,7 +134,7 @@ async function setup(): Promise<Config> {
       };
 
       try {
-        const configPath = path.join(process.cwd(), '.ai-commit-rc.json');
+        const configPath = path.join(process.cwd(), 'ai-commit-rc.json');
         await fs.writeFile(configPath, JSON.stringify(config, null, 2));
         console.log('\n✅ Configuration saved successfully!');
         return config;

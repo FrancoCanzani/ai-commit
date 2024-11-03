@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { streamText, StreamTextResult, CoreTool } from 'ai';
+import { streamText } from 'ai';
 import getConfigFile from './get-config-file';
 import dotenv from 'dotenv';
 import { anthropic } from '@ai-sdk/anthropic';
