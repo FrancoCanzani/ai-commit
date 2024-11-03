@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-// ⬆︎ tells Unix-like systems to run this file with Node.js when executed from the command line
 
 import { program } from 'commander';
 import ora from 'ora';
@@ -8,7 +7,6 @@ import dotenv from 'dotenv';
 import { execSync } from 'child_process';
 import getConfigFile from './helpers/get-config-file.js';
 import AiModel from './helpers/ai-model.js';
-import { setup } from './lib/setup.js';
 
 dotenv.config();
 
@@ -35,20 +33,9 @@ async function main() {
   program
     .name('ai-commit')
     .description('AI-powered Git commit message generator')
-    .version('1.0.0')
-    .option('-c, --config', 'Configure ai-commit settings');
+    .version('1.0.0');
 
   program.parse();
-
-  const options = program.opts();
-
-  if (options.config) {
-    await setup().catch((error) => {
-      console.error('Setup failed:', error);
-      process.exit(1);
-    });
-    process.exit(0);
-  }
 
   try {
     const diffSpinner = ora('Getting staged changes...').start();
@@ -84,7 +71,6 @@ async function main() {
 
     if (config?.options.autoCommit) {
       const commitSpinner = ora('Applying commit...').start();
-      console.log();
       await applyCommit(fullResponse);
       commitSpinner.succeed('Commit applied successfully');
 
