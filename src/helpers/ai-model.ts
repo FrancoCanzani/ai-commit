@@ -3,6 +3,7 @@ import { streamText } from 'ai';
 import getConfigFile from './get-config-file';
 import dotenv from 'dotenv';
 import { anthropic } from '@ai-sdk/anthropic';
+import { COMMIT_FORMATS } from '../lib/types';
 
 dotenv.config();
 
@@ -52,13 +53,15 @@ export default class AiModel {
 
       const result = await streamText({
         model: modelType,
-        prompt: `Based on this git diff, write a single-line conventional commit message in ${
+        prompt: `Based on this git diff, write a commit message in ${
           config?.language ?? 'english'
-        }. For non-Latin scripts, provide both the localized message and its English translation in parentheses. Use the format ${
-          config?.format ?? 'Simple (description only)'
-        }. Be concise and specific. Maximum ${
+        }. ${
+          config?.format === COMMIT_FORMATS.SIMPLE
+            ? 'Write a simple description without any type or scope prefixes.'
+            : `Use the format ${config?.format}`
+        }. Maximum ${
           config?.maxLength ?? 50
-        } characters for the main message. No explanation, just the commit message. ${diff}`,
+        } characters. No explanation, just the commit message. ${diff}`,
         headers: {
           'x-api-key': this.apiKey,
         },
