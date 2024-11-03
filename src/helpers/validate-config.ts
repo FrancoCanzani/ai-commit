@@ -3,7 +3,7 @@ import {
   COMMIT_FORMATS,
   COMMIT_OPTIONS,
   CommitOption,
-} from '../lib/types';
+} from '../lib/types.js';
 
 interface ValidationError {
   field: string;

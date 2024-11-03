@@ -4,14 +4,14 @@
   "description": "A package that generates commit messages with AI",
   "main": "index.js",
   "type": "module",
+  "exports": "./dist/index.js",
   "bin": {
-    "ai-commit": "./bin/cli.ts"
+    "ai-commit": "./dist/index.js"
   },
   "scripts": {
-    "start": "tsx src/index.ts",
-    "build": "tsc",
-    "dev": "tsx watch src/index.ts",
-    "postinstall": "tsx src/lib/setup.ts"
+    "build": "tsc && chmod +x dist/index.js",
+    "prepare": "npm run build",
+    "prepack": "npm run build"
   },
   "repository": {
     "type": "git",

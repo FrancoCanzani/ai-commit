@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import path from 'path';
-import validateConfig from './validate-config';
-import { Config } from '../lib/types';
+import validateConfig from './validate-config.js';
+import { Config } from '../lib/types.js';
 
 export default async function getConfigFile(): Promise<Config | null> {
   try {

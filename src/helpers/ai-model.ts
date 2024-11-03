@@ -1,9 +1,9 @@
 import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
-import getConfigFile from './get-config-file';
+import getConfigFile from './get-config-file.js';
 import dotenv from 'dotenv';
 import { anthropic } from '@ai-sdk/anthropic';
-import { COMMIT_FORMATS } from '../lib/types';
+import { COMMIT_FORMATS } from '../lib/types.js';
 
 dotenv.config();
 

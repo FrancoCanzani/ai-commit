@@ -1,10 +1,13 @@
+#!/usr/bin/env node
+//⬆︎ tells Unix-like systems to run this file with Node.js when executed from the command line
+
 import { program } from 'commander';
 import ora from 'ora';
 import { input, confirm } from '@inquirer/prompts';
 import dotenv from 'dotenv';
 import { execSync } from 'child_process';
-import getConfigFile from './helpers/get-config-file';
-import AiModel from './helpers/ai-model';
+import getConfigFile from './helpers/get-config-file.js';
+import AiModel from './helpers/ai-model.js';
 
 dotenv.config();
 
