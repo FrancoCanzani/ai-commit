@@ -3,7 +3,6 @@
 import { confirm, input, select, checkbox, number } from '@inquirer/prompts';
 import fs from 'fs/promises';
 import path from 'path';
-import figlet from 'figlet';
 import {
   AI_PROVIDERS,
   COMMIT_FORMATS,
@@ -17,18 +16,6 @@ import {
 } from './types.js';
 
 async function setup(): Promise<Config> {
-  const asciiArt = await new Promise<string>((resolve, reject) => {
-    figlet('AI COMMIT', (err, data) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve(data || '');
-    });
-  });
-
-  console.log(asciiArt);
-
   try {
     const shouldConfigure = await confirm({
       message: `Would you like to configure ai-commit now?
