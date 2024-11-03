@@ -12,7 +12,7 @@ import {
   CommitFormat,
   CommitOption,
   CommitLanguage,
-} from './types';
+} from './types.js';
 
 async function setup(): Promise<Config> {
   const asciiArt = await new Promise<string>((resolve, reject) => {

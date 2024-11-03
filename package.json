@@ -5,13 +5,14 @@
   "main": "index.js",
   "type": "module",
   "exports": "./dist/index.js",
-  "bin": {
-    "ai-commit": "./dist/index.js"
-  },
   "scripts": {
     "build": "tsc && chmod +x dist/index.js",
     "prepare": "npm run build",
-    "prepack": "npm run build"
+    "setup": "node dist/lib/setup.js"
+  },
+  "bin": {
+    "ai-commit": "./dist/cli.js",
+    "ai-commit-setup": "./dist/lib/setup.js"
   },
   "repository": {
     "type": "git",
