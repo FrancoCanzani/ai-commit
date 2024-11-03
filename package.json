@@ -7,12 +7,11 @@
   "exports": "./dist/index.js",
   "scripts": {
     "build": "tsc && chmod +x dist/index.js",
-    "prepare": "npm run build",
-    "setup": "node dist/lib/setup.js"
+    "prepare": "npm run build"
   },
   "bin": {
-    "ai-commit": "./dist/cli.js",
-    "ai-commit-setup": "./dist/lib/setup.js"
+    "ai-commit": "./dist/index.js",
+    "ai-commit-config": "./dist/lib/setup.js"
   },
   "repository": {
     "type": "git",
