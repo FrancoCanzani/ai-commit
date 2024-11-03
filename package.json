@@ -1,6 +1,6 @@
 {
   "name": "@francocanzani/ai-commit",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A package that generates commit messages with AI",
   "main": "index.js",
   "type": "module",

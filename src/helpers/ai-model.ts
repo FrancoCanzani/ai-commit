@@ -9,6 +9,8 @@ dotenv.config();
 
 const config = await getConfigFile();
 
+dotenv.config({ path: config?.envFile || '.env' });
+
 export default class AiModel {
   private provider: 'openai' | 'anthropic' | null;
   private apiKey: string;
@@ -16,7 +18,6 @@ export default class AiModel {
   constructor(provider: 'openai' | 'anthropic' | null) {
     this.provider = provider;
 
-    // Get API key from environment variable using the config
     const envVariable =
       config?.envVariable ||
       (this.provider === 'openai' ? 'OPENAI_API_KEY' : 'ANTHROPIC_API_KEY');
@@ -25,7 +26,7 @@ export default class AiModel {
 
     if (!this.apiKey) {
       throw new Error(
-        `API key not found in environment variable: ${envVariable}`
+        `API key not found in environment variable: ${envVariable} in ${config?.envFile}`
       );
     }
   }

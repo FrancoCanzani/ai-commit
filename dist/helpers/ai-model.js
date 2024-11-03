@@ -6,17 +6,17 @@ import { anthropic } from '@ai-sdk/anthropic';
 import { COMMIT_FORMATS } from '../lib/types.js';
 dotenv.config();
 const config = await getConfigFile();
+dotenv.config({ path: config?.envFile || '.env' });
 export default class AiModel {
     provider;
     apiKey;
     constructor(provider) {
         this.provider = provider;
-        // Get API key from environment variable using the config
         const envVariable = config?.envVariable ||
             (this.provider === 'openai' ? 'OPENAI_API_KEY' : 'ANTHROPIC_API_KEY');
         this.apiKey = process.env[envVariable] || '';
         if (!this.apiKey) {
-            throw new Error(`API key not found in environment variable: ${envVariable}`);
+            throw new Error(`API key not found in environment variable: ${envVariable} in ${config?.envFile}`);
         }
     }
     async generateCommitMessage(diff) {
