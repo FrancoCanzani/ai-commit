@@ -49,32 +49,32 @@ try {
     const cleanMessage = fullResponse.trim().replace(/"/g, '\\"');
     execSync(`git commit -m "${cleanMessage}"`, { stdio: 'inherit' });
     commitSpinner.succeed('Commit applied successfully');
-  }
-
-  const confirmMessage = await confirm({
-    message: 'Would you like to use this commit message?',
-  });
-
-  if (confirmMessage) {
-    const commitSpinner = ora('Applying commit...').start();
-
-    try {
-      const cleanMessage = fullResponse.trim().replace(/"/g, '\\"');
-
-      commitSpinner.stop();
-      await input({
-        message: `Press Enter to run: git commit -m "${cleanMessage}"`,
-      });
-
-      execSync(`git commit -m "${cleanMessage}"`, { stdio: 'inherit' });
-      commitSpinner.succeed('Commit applied successfully');
-    } catch (error) {
-      commitSpinner.fail('Failed to apply commit');
-      throw error;
-    }
   } else {
-    console.log('Commit message not applied.');
-    process.exit(0);
+    const confirmMessage = await confirm({
+      message: 'Would you like to use this commit message?',
+    });
+
+    if (confirmMessage) {
+      const commitSpinner = ora('Applying commit...').start();
+
+      try {
+        const cleanMessage = fullResponse.trim().replace(/"/g, '\\"');
+
+        commitSpinner.stop();
+        await input({
+          message: `Press Enter to run: git commit -m "${cleanMessage}"`,
+        });
+
+        execSync(`git commit -m "${cleanMessage}"`, { stdio: 'inherit' });
+        commitSpinner.succeed('Commit applied successfully');
+      } catch (error) {
+        commitSpinner.fail('Failed to apply commit');
+        throw error;
+      }
+    } else {
+      console.log('Commit message not applied.');
+      process.exit(0);
+    }
   }
 } catch (error) {
   console.error('Error:', error);
