@@ -12,6 +12,7 @@ export const COMMIT_FORMATS = {
 export const COMMIT_OPTIONS = {
   AUTO_COMMIT: 'autoCommit',
   SHOW_DIFF: 'showDiff',
+  PROMPT_PUSH: 'promptPush',
 } as const;
 
 export type AIProvider = (typeof AI_PROVIDERS)[keyof typeof AI_PROVIDERS];

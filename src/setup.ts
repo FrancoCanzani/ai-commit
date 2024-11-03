@@ -118,6 +118,11 @@ async function setup(): Promise<Config> {
             value: COMMIT_OPTIONS.SHOW_DIFF,
             checked: false,
           },
+          {
+            name: 'Prompt to push changes after committing',
+            value: COMMIT_OPTIONS.PROMPT_PUSH,
+            checked: false,
+          },
         ],
       });
 

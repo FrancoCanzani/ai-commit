@@ -16,6 +16,17 @@ async function applyCommit(message: string) {
   execSync(`git commit -m "${cleanMessage}"`, { stdio: 'inherit' });
 }
 
+async function pushChanges() {
+  const pushSpinner = ora('Pushing changes...').start();
+  try {
+    execSync('git push', { stdio: 'inherit' });
+    pushSpinner.succeed('Changes pushed successfully');
+  } catch (error) {
+    pushSpinner.fail('Failed to push changes');
+    throw error;
+  }
+}
+
 try {
   const diffSpinner = ora('Getting staged changes...').start();
   let diff;
@@ -53,6 +64,15 @@ try {
     console.log();
     await applyCommit(fullResponse);
     commitSpinner.succeed('Commit applied successfully');
+
+    if (config?.options.promptPush) {
+      const shouldPush = await confirm({
+        message: 'Would you like to push your changes?',
+      });
+      if (shouldPush) {
+        await pushChanges();
+      }
+    }
     process.exit(0);
   }
 
@@ -74,6 +94,15 @@ try {
     });
     await applyCommit(fullResponse);
     commitSpinner.succeed('Commit applied successfully');
+
+    if (config?.options.promptPush) {
+      const shouldPush = await confirm({
+        message: 'Would you like to push your changes?',
+      });
+      if (shouldPush) {
+        await pushChanges();
+      }
+    }
   } catch (error) {
     commitSpinner.fail('Failed to apply commit');
     throw error;
