@@ -30,10 +30,6 @@ export default class AiModel {
     }
   }
 
-  getProvider() {
-    return this.provider;
-  }
-
   async generateCommitMessage(diff: string) {
     if (!diff) {
       throw new Error('No diff provided to generate commit message.');
