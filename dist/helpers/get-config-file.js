@@ -20,9 +20,6 @@ export default async function getConfigFile() {
         if (error instanceof SyntaxError) {
             console.error('\n❌ Invalid JSON in ai-commit-rc.json');
         }
-        else {
-            console.error('\n❌ Configuration file not found. Run ai-commit-config to set up.');
-        }
         return null;
     }
 }
