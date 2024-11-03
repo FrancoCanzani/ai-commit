@@ -1,9 +1,10 @@
 {
   "provider": "openai",
   "envVariable": "OPENAI_API_KEY",
-  "format": "simple",
+  "format": "Simple (description only)",
   "maxLength": 50,
   "options": {
-    "autoCommit": true
+    "autoCommit": true,
+    "promptPush": true
   }
 }
