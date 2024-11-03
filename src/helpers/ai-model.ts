@@ -26,7 +26,7 @@ export default class AiModel {
 
     if (!this.apiKey) {
       throw new Error(
-        `API key not found in environment variable: ${envVariable} in ${config?.envFile}`
+        `API key not found in environment variable: ${envVariable} in ${config?.envFile}`,
       );
     }
   }
@@ -44,7 +44,7 @@ export default class AiModel {
 
       if (!modelType) {
         throw new Error(
-          `Model type for provider ${this.provider} is not supported or incorrectly configured.`
+          `Model type for provider ${this.provider} is not supported or incorrectly configured.`,
         );
       }
 
@@ -72,7 +72,7 @@ export default class AiModel {
     } catch (error) {
       console.error('Error generating commit message:', error);
       throw new Error(
-        'Failed to generate commit message. Please check your configuration and API credentials.'
+        'Failed to generate commit message. Please check your configuration and API credentials.',
       );
     }
   }

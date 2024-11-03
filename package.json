@@ -2,13 +2,23 @@
   "name": "@francocanzani/ai-commit",
   "version": "1.1.2",
   "description": "A package that generates commit messages with AI",
+  "keywords": [
+    "ai",
+    "aicommit",
+    "git tools"
+  ],
   "main": "index.js",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "exports": "./dist/index.js",
   "scripts": {
-    "build": "tsc && chmod +x dist/index.js dist/lib/setup.js",
+    "build": "tsc",
+    "ci": "npm run build",
     "prepare": "npm run build",
-    "postinstall": "node dist/lib/postinstall.js"
+    "postinstall": "node dist/lib/postinstall.js",
+    "format": "prettier --write ."
   },
   "bin": {
     "@francocanzani/aicommit": "dist/index.js"
@@ -38,6 +48,7 @@
     "@types/node": "^22.8.7",
     "commander": "^12.1.0",
     "inquirer": "^12.0.1",
+    "prettier": "^3.3.3",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3"
   }

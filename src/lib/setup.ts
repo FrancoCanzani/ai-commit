@@ -175,7 +175,7 @@ export async function setup(): Promise<Config> {
         maxLength: messageLength,
         options: options.reduce(
           (acc, curr) => ({ ...acc, [curr]: true }),
-          {} as Record<CommitOption, boolean>
+          {} as Record<CommitOption, boolean>,
         ),
       };
 
