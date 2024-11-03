@@ -16,7 +16,7 @@
 To install `ai-commit`, run:
 
 ```bash
-npm install ai-commit
+npm i @francocanzani/ai-commit
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ npm install ai-commit
 To use the tool, you can run it directly from the command line:
 
 ```bash
-npx ai-commit
+npx @francocanzani/ai-commit
 ```
 
 ### Commands
@@ -50,6 +50,7 @@ The configuration settings can be defined in the `ai-commit-rc.json` file. The t
   "envVariable": "OPENAI_API_KEY",
   "format": "Conventional (type(scope): description)",
   "language": "english",
+  "envFile": ".env",
   "maxLength": 50,
   "options": {
     "showDiff": false,
@@ -76,7 +77,7 @@ If you choose not to set up a configuration, the default settings are as follows
 
 ## Example Usage
 
-1. Run `ai-commit-config` to set up your preferences or let the tool use the default configuration.
+1. Run `ai-commit --config` to set up your preferences or let the tool use the default configuration.
 2. Stage your changes using `git add`.
 3. Execute `ai-commit` to generate a commit message based on the staged changes.
 4. Confirm the proposed commit message or auto-commit based on your settings.
