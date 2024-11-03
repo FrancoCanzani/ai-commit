@@ -18,7 +18,7 @@ import {
 export async function setup(): Promise<Config> {
   try {
     const shouldConfigure = await confirm({
-      message: `Would you like to configure ai-commit now?
+      message: `Would you like to configure aicommit now?
    
        If not, here is what the default config looks like:
    
@@ -171,7 +171,7 @@ export async function setup(): Promise<Config> {
       };
 
       try {
-        const configPath = path.join(process.cwd(), 'ai-commit-rc.json');
+        const configPath = path.join(process.cwd(), 'aicommit-rc.json');
         await fs.writeFile(configPath, JSON.stringify(config, null, 2));
         console.log('\n✅ Configuration saved successfully!');
         return config;
