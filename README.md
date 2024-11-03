@@ -1,88 +1,90 @@
-# AI Commit
+# ai-commit
 
-AI Commit is a powerful command-line tool that generates meaningful Git commit messages using AI models. It simplifies the commit process by analyzing the changes in your staged files and providing a suggested commit message tailored to your specified format and options.
+## Overview
 
-## Table of Contents
-
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Configuration](#configuration)
-- [API Key Security Guidelines](#api-key-security-guidelines)
-- [License](#license)
+`ai-commit` is an AI-powered Git commit message generator that assists developers in creating meaningful and structured commit messages using OpenAI or Anthropic's AI models. The tool analyzes the differences in staged changes and generates a proposed commit message based on configurable parameters.
 
 ## Features
 
-- **AI-Powered**: Utilizes OpenAI and Anthropic models to generate commit messages.
-- **Customizable**: Configure the AI provider, commit message format, and more.
-- **Multiple Languages**: Supports various languages for commit messages.
-- **Auto-commit Option**: Automatically applies the generated commit message if desired.
-- **Preview and Confirm**: Preview the suggested message and confirm before applying.
-- **Seamless Integration**: Easily integrates with existing Git workflows.
+- Generates commit messages based on staged changes.
+- Supports multiple AI providers (OpenAI and Anthropic).
+- Configurable commit message formats and languages.
+- Allows auto-commit and preview options.
 
 ## Installation
 
-To install AI Commit, clone this repository and run the following command:
+To install `ai-commit`, run:
 
 ```bash
-npm install
+npm install ai-commit
 ```
 
 ## Usage
 
-After installation, you can use AI Commit from the command line. Here are the available commands:
+To use the tool, you can run it directly from the command line:
 
-- **Generate commit message**:  
-  To generate a commit message based on the staged changes:
+```bash
+npx ai-commit
+```
+
+### Commands
+
+- **Generate commit message for staged changes:**
 
   ```bash
-  ai-commit
+  npx ai-commit
   ```
 
-- **Configure AI Commit settings**:  
-  To set up your preferences:
+- **Configure ai-commit settings:**
   ```bash
-  ai-commit --config
+  npx ai-commit --config
   ```
 
 ## Configuration
 
-The configuration for AI Commit is stored in a JSON file named `ai-commit-rc.json`. You can either configure it manually or through the interactive setup when you run `ai-commit --config`.
-
-### Configuration Options
-
-- **provider**: The AI model provider (`openai` or `anthropic`).
-- **envVariable**: The name of the environment variable that holds your API key.
-- **format**: The format of the commit message (e.g., `Conventional`, `Simple`, `Detailed`).
-- **language**: The language of the commit message (e.g., `English`, `Mandarin`, `Spanish`, etc.).
-- **maxLength**: The maximum length of the commit message (between 50 and 100 characters).
-- **options**: Additional options such as `autoCommit`, `showDiff`, and `promptPush`.
-
-### Example Configuration
-
-Here's an example of what the `ai-commit-rc.json` configuration file might look like:
+The configuration settings can be defined in the `ai-commit-rc.json` file. The tool will attempt to read this file when executed. Here’s an example of the default configuration:
 
 ```json
 {
   "provider": "openai",
   "envVariable": "OPENAI_API_KEY",
   "format": "Conventional (type(scope): description)",
-  "language": "English",
+  "language": "english",
   "maxLength": 50,
   "options": {
-    "autoCommit": false,
-    "showDiff": true,
-    "promptPush": false
+    "showDiff": false,
+    "autoCommit": false
   }
 }
 ```
 
-## API Key Security Guidelines
+### Default Configuration
 
-- **Never store API keys** directly in your code or configuration files.
-- **Use environment variables** to manage your API keys securely.
-- **Add `.env` to your `.gitignore`** file to prevent accidental commits of sensitive information.
+If you choose not to set up a configuration, the default settings are as follows:
+
+- **AI Provider:** OpenAI (API key will be extracted from the environment variable `OPENAI_API_KEY`)
+- **Format:** Simple descriptions
+- **Length:** 50 characters maximum
+- **Language:** English
+- **Auto commit:** disabled
+
+### API Key Management
+
+- Never store API keys directly in your code or config files.
+- Use environment variables to manage your API keys securely.
+- Add `.env` to your `.gitignore` to avoid accidental exposure of your API keys.
+
+## Example Usage
+
+1. Run `ai-commit-config` to set up your preferences or let the tool use the default configuration.
+2. Stage your changes using `git add`.
+3. Execute `ai-commit` to generate a commit message based on the staged changes.
+4. Confirm the proposed commit message or auto-commit based on your settings.
+
+## Contributing
+
+Contributions are welcome! Please feel free to open issues or submit pull requests.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
